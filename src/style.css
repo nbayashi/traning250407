@@ -10,10 +10,39 @@
   font-size: 14px;
   z-index: 1;
   line-height: 1.6;
+  width: 150px; /* 幅を固定してバランス調整 */
+}
+
+/* チェックボックスとラベルを縦並びにする */
+#layer-toggle label {
+  display: block;
+  margin-bottom: 6px;
 }
 
 #layer-toggle strong {
   display: block;
   margin-bottom: 6px;
   font-size: 15px;
+}
+
+.legend {
+  margin: 5px 0 10px 20px;
+  font-size: 13px;
+}
+
+.legend div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.legend span {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  border: 1px solid #ccc;
+}
+#legend-jinko {
+  display: block; /* 初期は表示 */
 }

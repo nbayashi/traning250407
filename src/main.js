@@ -85,13 +85,6 @@ map.on('load', async () => {
     });
 
   // Add a checkbox
-    document.getElementById('toggle-jinko').addEventListener('change', (e) => {
-      map.setLayoutProperty(
-        'jinko_mesh',
-        'visibility',
-        e.target.checked ? 'visible' : 'none'
-      );
-    });
     
     document.getElementById('toggle-city').addEventListener('change', (e) => {
       map.setLayoutProperty(
@@ -108,7 +101,39 @@ map.on('load', async () => {
         e.target.checked ? 'visible' : 'none'
       );
     });
+    // 凡例の表示切替
+    document.getElementById('toggle-jinko').addEventListener('change', (e) => {
+      const visible = e.target.checked;
+    
+      // レイヤーの表示切替
+      map.setLayoutProperty('jinko_mesh', 'visibility', visible ? 'visible' : 'none');
+    
+      // 凡例の表示切替
+      document.getElementById('legend-jinko').style.display = visible ? 'block' : 'none';
+    });
 
+});
+
+map.on('click', 'jinko_mesh', (e) => {
+  // クリックされた最初のフィーチャを取得
+  const feature = e.features[0];
+
+  // STN_2025 の値を取得（なければ 'なし'）
+  const stnValue = feature.properties.PTN_2025 || '情報なし';
+
+  // ポップアップを作成・表示
+  new maplibregl.Popup()
+    .setLngLat(e.lngLat)
+    .setHTML(`<strong>PTN_2025:</strong> ${stnValue}`)
+    .addTo(map);
+});
+
+map.on('mouseenter', 'jinko_mesh', () => {
+  map.getCanvas().style.cursor = 'pointer';
+});
+
+map.on('mouseleave', 'jinko_mesh', () => {
+  map.getCanvas().style.cursor = '';
 });
 
 map.addControl(new maplibregl.NavigationControl(), 'top-right');
