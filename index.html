@@ -16,23 +16,30 @@
   </head>
   <body>
     <!-- ↓ 地図が挿入される場所 -->
-    <div id="map" style="width: 70vw; height: 70vh"></div>
-    <div id="layer-toggle">
-      <strong>レイヤー表示切替</strong>
-  <!-- 人口メッシュ -->
-  <label>
-    <input type="checkbox" checked id="toggle-jinko"> 人口メッシュ
-  </label>
-  <div class="legend" id="legend-jinko">
-    <div><span style="background:#ff0000"></span> 1800人以上</div>
-    <div><span style="background:#ff3333"></span> 1500〜1799人</div>
-    <div><span style="background:#ff6666"></span> 800〜1499人</div>
-    <div><span style="background:#ff9999"></span> 500〜799人</div>
-    <div><span style="background:#ffbfbf"></span> 200〜499人</div>
-    <div><span style="background:#cccccc"></span> 〜199人</div>
-  </div>
-      <label><input type="checkbox" checked id="toggle-city"> 枚方市境界</label>
-      <label><input type="checkbox" checked id="toggle-sakura"> 桜ポイント</label>
+    <div id="map" style="width: 100vw; height: 90vh"></div>
+    <div id="layer-toggle" class="collapsed">
+      <div class="toggle-header">▶ レイヤー表示切替</div>
+      <div class="toggle-content">
+        <label>
+          <input type="checkbox" checked id="toggle-jinko"> 将来人口メッシュ(2025年)
+        </label>
+        <div class="legend" id="legend-jinko">
+          <div><span style="background:#ff0000"></span> 1800人以上</div>
+          <div><span style="background:#ff3333"></span> 1500〜1799人</div>
+          <div><span style="background:#ff6666"></span> 800〜1499人</div>
+          <div><span style="background:#ff9999"></span> 500〜799人</div>
+          <div><span style="background:#ffbfbf"></span> 200〜499人</div>
+          <div><span style="background:#cccccc"></span> 〜199人</div>
+        </div>
+    
+        <label><input type="checkbox" checked id="toggle-city"> 枚方市境界</label>
+        <label><input type="checkbox" checked id="toggle-sakura"> 桜ポイント</label>
+      </div>
+
+    </div>
+
+    <div>
+      <button id="reset" class="btn">枚方市へ飛ぶ</button>
     </div>
 
     

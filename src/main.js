@@ -1,3 +1,8 @@
+
+
+const initialCenter = [135.66, 34.82];
+const initialZoom = 11.5;
+
 const map = new maplibregl.Map({
   container: 'map',
   style: {
@@ -22,8 +27,6 @@ const map = new maplibregl.Map({
       }
     ]
   },
-  center: [135.66, 34.82], // 東京駅付近
-  zoom: 11.5,
 
 
   // 表示可能な地理範囲（西南端と北東端）
@@ -32,7 +35,11 @@ const map = new maplibregl.Map({
     [136.0, 35.0]  // 北東（最大経度, 最大緯度）
   ],
   minZoom: 10,
-  maxZoom: 16
+  maxZoom: 16,
+
+
+  center: initialCenter,
+  zoom: initialZoom,
 });
 
 
@@ -63,12 +70,12 @@ map.on('load', async () => {
       "fill-color": [
         "step",
         ["get", "PTN_2025"],
-        "#cccccc",  // 0以下
-        200, "#ffbfbf",  // 20以上→青
-        500, "#ff9999",  // 40以上→緑
-        800, "#ff6666",  // 40以上→緑
-        1500, "#ff3333",  // 60以上→黄
-        1800, "#ff0000"   // 80以上→赤
+        "#cccccc", 
+        200, "#ffbfbf", 
+        500, "#ff9999",  
+        800, "#ff6666",  
+        1500, "#ff3333",  
+        1800, "#ff0000"   
       ],
       "fill-opacity": 0.6
     }
@@ -146,3 +153,25 @@ map.on('mouseleave', 'jinko_mesh', () => {
 });
 
 map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+// 折りたたみ機能：クリックで切り替え
+document.querySelector('.toggle-header').addEventListener('click', () => {
+  const toggle = document.getElementById('layer-toggle');
+  toggle.classList.toggle('expanded');
+
+  // 見出しの ▶ or ▼ を切り替え
+  const title = toggle.querySelector('.toggle-header');
+  if (toggle.classList.contains('expanded')) {
+    title.textContent = '▼ レイヤー表示切替';
+  } else {
+    title.textContent = '▶ レイヤー表示切替';
+  }
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  map.flyTo({
+    center: initialCenter,
+    zoom: initialZoom,
+    essential: true
+  });
+});
