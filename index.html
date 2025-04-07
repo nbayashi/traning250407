@@ -12,10 +12,18 @@
       href="https://unpkg.com/maplibre-gl@^5.0.0/dist/maplibre-gl.css"
       rel="stylesheet"
     />
+<link rel="stylesheet" href="src/style.css">
   </head>
   <body>
     <!-- ↓ 地図が挿入される場所 -->
-    <div id="map" style="width: 90vw; height: 90vh"></div>
+    <div id="map" style="width: 80vw; height: 80vh"></div>
+    <div id="layer-toggle">
+      <strong>レイヤー表示切替</strong><br>
+      <label><input type="checkbox" checked id="toggle-jinko"> 人口メッシュ</label><br>
+      <label><input type="checkbox" checked id="toggle-city"> 枚方市境界</label><br>
+      <label><input type="checkbox" checked id="toggle-sakura"> 桜ポイント</label>
+    </div>
+
     
     <!-- 外部JSファイルを読み込む -->
     <script src="./src/main.js"></script>

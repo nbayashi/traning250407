@@ -22,8 +22,8 @@ const map = new maplibregl.Map({
       }
     ]
   },
-  center: [135.6, 34.8], // 東京駅付近
-  zoom: 10
+  center: [135.66, 34.82], // 東京駅付近
+  zoom: 11.5
 });
 
 
@@ -41,14 +41,36 @@ map.on('load', async () => {
       type: 'geojson',
       data: './src/data/hirakata_city.geojson'
   });
+  map.addSource('jinko_mesh', {
+      type: 'geojson',
+      data: './src/data/jinko_mesh.geojson'
+  });
   // ポリゴンのスタイル設定
   map.addLayer({
-    id: 'hirakata_city',
+    id: 'jinko_mesh',
     type: 'fill',
+    source: 'jinko_mesh',
+    paint: {
+      "fill-color": [
+        "step",
+        ["get", "PTN_2025"],
+        "#cccccc",  // 0以下
+        200, "#ffbfbf",  // 20以上→青
+        500, "#ff9999",  // 40以上→緑
+        800, "#ff6666",  // 40以上→緑
+        1500, "#ff3333",  // 60以上→黄
+        1800, "#ff0000"   // 80以上→赤
+      ],
+      "fill-opacity": 0.6
+    }
+  });
+  map.addLayer({
+    id: 'hirakata_city',
+    type: 'line',
     source: 'hirakata_city',
     paint: {
-      'fill-color': '#888800',
-      'fill-opacity': 0.5,
+      "line-color": "#ff3300",
+      "line-width": 2
     }
   });
   // スタイル設定
@@ -60,6 +82,31 @@ map.on('load', async () => {
         'icon-image': 'custom-marker',
         'icon-size': 0.06
       }
+    });
+
+  // Add a checkbox
+    document.getElementById('toggle-jinko').addEventListener('change', (e) => {
+      map.setLayoutProperty(
+        'jinko_mesh',
+        'visibility',
+        e.target.checked ? 'visible' : 'none'
+      );
+    });
+    
+    document.getElementById('toggle-city').addEventListener('change', (e) => {
+      map.setLayoutProperty(
+        'hirakata_city',
+        'visibility',
+        e.target.checked ? 'visible' : 'none'
+      );
+    });
+    
+    document.getElementById('toggle-sakura').addEventListener('change', (e) => {
+      map.setLayoutProperty(
+        'sakura_point',
+        'visibility',
+        e.target.checked ? 'visible' : 'none'
+      );
     });
 
 });
